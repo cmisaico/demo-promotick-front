@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoService } from '../../services/producto.service';
+import { ProductoService } from '../../shared/services/producto.service';
 import { Categoria } from '../../shared/models/categoria.model';
 
 @Component({
@@ -22,8 +22,8 @@ export class FilterComponent implements OnInit {
     this.productosService.obtenerCategorias().subscribe(categorias => this.categorias = categorias);;
   }
 
-  filtrarPorCategoria(categoria: string): void {
-    
+  filtrarPorCategoria(): void {
+    this.productosService.enviarMensaje(this.categoriasMarcadas);
   }
 
   onCheckboxChange(event: Event, categoria: string, isChecked: boolean) {
@@ -38,6 +38,7 @@ export class FilterComponent implements OnInit {
 
     // Imprimir las categorías marcadas (puedes realizar cualquier lógica adicional aquí)
     console.log('Categorías Marcadas:', this.categoriasMarcadas);
+    this.filtrarPorCategoria();
   }
 
 

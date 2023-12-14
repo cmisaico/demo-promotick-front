@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoService } from '../../services/producto.service';
+import { ProductoService } from '../../shared/services/producto.service';
 import { Producto } from '../../shared/models/producto.model';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 
@@ -15,8 +15,13 @@ export class ListProductsComponent implements OnInit {
   constructor(private productosService: ProductoService) {}
 
   ngOnInit(): void {
-    this.productosService.getProductos()
-    .subscribe(productos => this.productos = productos);
+    // this.productosService.getProductos([])
+    //   .subscribe(productos => this.productos = productos);
+    this.productosService.mensajeActual.subscribe(mensaje => {
+      console.log('llego');
+      this.productosService.getProductos(mensaje)
+        .subscribe(productos => this.productos = productos);
+    });
   }
 
 }

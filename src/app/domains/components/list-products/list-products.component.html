@@ -5,43 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
     <app-header></app-header>
-    <br><br><br>
-    <br><br><br><br><br><br>
-<!-- product-gallery.component.html -->
-<div class="container mx-auto my-8">
+
     <app-filter></app-filter>
-  
-    <!-- Filtro por Categoría -->
-    <!-- <div class="mb-4">
-      <label for="categoria" class="text-lg font-semibold">Filtrar por Categoría:</label>
-      <select id="categoria" class="ml-2 p-2 border rounded" [(ngModel)]="categoriaSeleccionada">
-        <option value="">Todas las Categorías</option>
-        <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
-      </select>
-    </div> -->
-  
-<!-- Galería de Productos -->
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-    <div *ngFor="let producto of productos" class="bg-white p-4 shadow-md rounded-md">
 
-            <img [src]="producto.image"/>
-      <h3 class="text-xl font-semibold">{{ producto.nombre }}</h3>
-      <p class="text-gray-700">${{ producto.precio | number: '1.2-2' }}</p>
-      <!-- <p class="text-gray-500">{{ producto.descripcion }}</p> -->
-      <p class="text-gray-500">{{ producto.categoria }}</p>
 
-      <!-- Botón para agregar al carrito -->
-      <button class="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600" (click)="agregarAlCarrito(producto)">Agregar al Carrito</button>
+    <div class="p-8 sm:ml-64">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div *ngFor="let producto of productos" class="bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+             
+                <img class="p-8 rounded-t-lg" src="/docs/images/products/apple-watch.png" alt="product image" />
+      
+            <div class="px-5 pb-5">
+               
+                    <span class="text-xl tracking-tight text-gray-900 dark:text-white">{{ producto.nombre }}</span>
 
-      <!-- Botón para ver detalles del producto -->
-      <button class="mt-4 bg-gray-500 text-white p-2 rounded hover:bg-gray-600" (click)="verDetalleProducto(producto)">Ver Detalle</button>
-    </div>
-  </div>
-  </div>
-  
+                <div class="flex items-center mt-2.5 mb-5">
+                    <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                    </div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">{{ producto.stock }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-1xl font-bold text-gray-900 dark:text-white">S/{{ producto.precio | number: '1.2-2' }}</span>
+                    <a (click)="agregarAlCarrito(producto)" class="text-white border-2 bg-white-200 hover:bg-blue-50 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                        <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
+                      </svg></a>
+                    <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver producto</a>
+                </div>
+            </div>
+        </div>
+        </div>
+     </div>
+
 </body>
 </html>

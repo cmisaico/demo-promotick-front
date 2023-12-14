@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarritoService } from '../../services/carrito.service';
+import { CarritoService } from '../../shared/services/carrito.service';
 import { Producto } from '../../shared/models/producto.model';
 
 @Component({
@@ -9,7 +9,28 @@ import { Producto } from '../../shared/models/producto.model';
 })
 export class CarritoComponent implements OnInit {
 
-  productosEnCarrito: Producto[];
+  productosEnCarrito: Producto[] = [
+    {
+      id: 1,
+      nombre: 'Producto 1',
+      precio: 100,
+      imagen: 'https://picsum.photos/200/300',
+      stock: 10,
+    },
+    {
+      id: 1,
+      nombre: 'Producto 1',
+      precio: 100,
+      imagen: 'https://picsum.photos/200/300',
+      stock: 10,
+    },
+    {
+      id: 1,
+      nombre: 'Producto 1',
+      precio: 100,
+      imagen: 'https://picsum.photos/200/300',
+      stock: 10,
+    }];
 
   constructor(private carritoService: CarritoService) {}
 
@@ -17,7 +38,7 @@ export class CarritoComponent implements OnInit {
     // Supongamos que tienes una variable que contiene el ID del usuario actual
     const usuarioId = 1; // Debes obtener el ID del usuario de alguna manera
 
-    this.getProductosEnCarrito(usuarioId);
+    // this.getProductosEnCarrito(usuarioId);
   }
 
   getProductosEnCarrito(usuarioId: number): void {
