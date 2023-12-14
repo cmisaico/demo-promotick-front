@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Producto } from '../shared/models/producto.model';
 import { Observable } from 'rxjs';
+import { Categoria } from '../shared/models/categoria.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class ProductoService {
 
   agregarProducto(producto: Producto): Observable<any> {
     return this.http.post(this.apiUrl + '/agregar', producto);
+  }
+
+  obtenerCategorias(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(this.apiUrl + '/categorias');
   }
 }

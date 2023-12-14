@@ -9,11 +9,7 @@ import { Producto } from '../shared/models/producto.model';
 export class CarritoService {
   private apiUrl = 'http://localhost:8080/api/carritos';
 
-  private productos: Producto[] = [
-    { id: 1, nombre: 'Producto 1', precio: 19.99 },
-    { id: 2, nombre: 'Producto 2', precio: 29.99 },
-    { id: 3, nombre: 'Producto 3', precio: 9.99 },
-  ]
+  private productos: Producto[];
 
   constructor(private http: HttpClient) {}
 

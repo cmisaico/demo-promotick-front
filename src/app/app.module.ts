@@ -9,7 +9,11 @@ import { CarritoComponent } from './domains/components/carrito/carrito.component
 import { LoginComponent } from './domains/components/login/login.component';
 import { RegistroComponent } from './domains/components/registro/registro.component';
 import { ListProductsComponent } from './domains/components/list-products/list-products.component';
-import { CarouselModule } from 'ngx-owl-carousel-o';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './domains/shared/components/header/header.component';
+import { FilterComponent } from './domains/components/filter/filter.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,12 +23,16 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     CarritoComponent,
     LoginComponent,
     RegistroComponent,
-    ListProductsComponent
+    ListProductsComponent,
+    HeaderComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CarouselModule
+    NgbModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
