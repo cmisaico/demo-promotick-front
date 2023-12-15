@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Producto } from '../models/producto.model';
-import { UsuarioService } from './usuario.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +12,28 @@ export class CarritoService {
   private carrito: Producto[] = [];
   private productos: Producto[];
 
-  constructor(private http: HttpClient, private usuarioService:UsuarioService) {
-    if(usuarioService.logueado){
-
-    } else {
-      this.carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    }
+  constructor(private http: HttpClient, private authService:AuthService) {
   }
 
-  getProductosEnCarrito(usuarioId: number): Observable<Producto[]> {
-    return of(this.productos);
+
+  getProductosEnCarrito(): Observable<Producto[]> {
+    if(this.authService.logueado){
+
+    } else {
+      console.log('carrito - component : ', this.carrito);
+      this.carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      console.log('carrito - componentdespue : ', this.carrito);
+    }
+    console.log('carrito - serice : ', this.carrito);
+    return of(this.carrito);
     // return this.http.get<Producto[]>(`${this.apiUrl}/${usuarioId}`);
   }
 
   agregarProductoAlCarrito(producto: Producto) {
+    this.getProductosEnCarrito();
+    console.log('antes carrito', this.carrito);
     this.carrito.push(producto);
+    console.log('agrega carrito', this.carrito);
     this.actualizarLocalStorage();
     // return this.http.post(`${this.apiUrl}/${usuarioId}/agregar/${productoId}`, {});
   }
@@ -36,8 +43,18 @@ export class CarritoService {
     this.actualizarLocalStorage();
   } 
 
-  eliminarProductoDelCarrito(usuarioId: number, productoId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${usuarioId}/eliminar/${productoId}`);
+  eliminarProductoDelCarrito(productoId: number): Observable<any> {
+    if(this.authService.logueado){
+
+    } else {
+      console.log('delete - component : ', this.carrito);
+      this.carrito = this.carrito.filter(producto => producto.id !== productoId);
+      this.actualizarLocalStorage();
+      console.log('delete - componentdespue : ', this.carrito);
+    }
+    console.log('carrito - serice : ', this.carrito);
+    return of(this.carrito);
+    // return this.http.delete(`${this.apiUrl}/${usuarioId}/eliminar/${productoId}`);
   }
 
   realizarCompra(usuarioId: number): Observable<any> {

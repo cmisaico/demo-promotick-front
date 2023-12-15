@@ -7,23 +7,9 @@ import { Usuario } from '../../shared/models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:8080/api/usuarios';
-
-  private estaLogueado = false;
+  private apiUrl = 'http://localhost:8080/api/usuarios/';
 
   constructor(private http: HttpClient) {}
-
-  get logueado(): boolean {
-    return this.estaLogueado;
-  }
-
-  login() {
-    this.estaLogueado = true;
-  }
-
-  logout() {
-    this.estaLogueado = false;
-  }
 
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.apiUrl);
@@ -34,6 +20,6 @@ export class UsuarioService {
   }
 
   registrarUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post(`${this.apiUrl}/registro`, usuario);
+    return this.http.post(`${this.apiUrl}registro`, usuario);
   }
 }

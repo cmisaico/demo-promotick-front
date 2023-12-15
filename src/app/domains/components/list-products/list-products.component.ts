@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../shared/services/producto.service';
 import { Producto } from '../../shared/models/producto.model';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { CarritoService } from '../../shared/services/carrito.service';
+import { ModalService } from '../../shared/services/modal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
@@ -10,9 +14,17 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 })
 export class ListProductsComponent implements OnInit {
 
+  modalVisible: boolean = false;
+
   private productos: Producto[];
 
-  constructor(private productosService: ProductoService) {}
+  constructor(private productosService: ProductoService,
+    private carritoService:CarritoService,
+    private modalService: ModalService) {
+      this.modalService.modalVisible$.subscribe(visible => {
+        this.modalVisible = visible;
+      });
+    }
 
   ngOnInit(): void {
     // this.productosService.getProductos([])
@@ -22,6 +34,18 @@ export class ListProductsComponent implements OnInit {
       this.productosService.getProductos(mensaje)
         .subscribe(productos => this.productos = productos);
     });
+ 
+  }
+
+  agregarAlCarrito(producto: Producto): void {
+    this.carritoService.agregarProductoAlCarrito(producto);
+    this.mostrarModal();
+    console.log('add', producto);
+  }
+
+  mostrarModal(){
+    this.modalService.mostrarModal();
+    console.log('mostrar', this.modalVisible);
   }
 
 }

@@ -37,20 +37,20 @@ export class CarritoComponent implements OnInit {
   ngOnInit(): void {
     // Supongamos que tienes una variable que contiene el ID del usuario actual
     const usuarioId = 1; // Debes obtener el ID del usuario de alguna manera
-
-    // this.getProductosEnCarrito(usuarioId);
+    console.log('inicia carrito');
+    this.getProductosEnCarrito();
   }
 
-  getProductosEnCarrito(usuarioId: number): void {
-    this.carritoService.getProductosEnCarrito(usuarioId)
+  getProductosEnCarrito(): void {
+    this.carritoService.getProductosEnCarrito()
       .subscribe(productos => this.productosEnCarrito = productos);
   }
 
-  eliminarProductoDelCarrito(usuarioId: number, productoId: number): void {
-    this.carritoService.eliminarProductoDelCarrito(usuarioId, productoId)
+  eliminarProductoDelCarrito(productoId: number): void {
+    this.carritoService.eliminarProductoDelCarrito(productoId)
       .subscribe(() => {
         // Actualiza la lista de productos en el carrito después de eliminar
-        this.getProductosEnCarrito(usuarioId);
+        this.getProductosEnCarrito();
       });
   }
 

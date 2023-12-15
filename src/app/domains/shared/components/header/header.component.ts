@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
+import { RouterLinkWithHref, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +8,13 @@ import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  navegarACarrito(){
+    this.router.navigate(['/carrito']);
   }
 
 }

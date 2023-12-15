@@ -14,6 +14,7 @@ import { HeaderComponent } from './domains/shared/components/header/header.compo
 import { FilterComponent } from './domains/components/filter/filter.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalComponent } from './domains/shared/components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     ListProductsComponent,
     HeaderComponent,
     FilterComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

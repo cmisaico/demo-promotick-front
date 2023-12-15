@@ -1,110 +1,7 @@
 
-
-<div role="status" class="p-4 border border-gray-200 rounded shadow md:p-6 dark:border-gray-700">
-
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Product name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Google Pixel Phone
-                </th>
-                <td class="px-6 py-4">
-                    Phone
-                </td>
-                <td class="px-6 py-4">
-                    $799
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple Watch 5
-                </th>
-                <td class="px-6 py-4">
-                    Wearables
-                </td>
-                <td class="px-6 py-4">
-                    $999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-  </div>
-  
-  <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-  <div class="flex items-center mt-4">
-     <svg class="w-10 h-10 me-3 text-gray-200 dark:text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
-      </svg>
-      <div>
-          <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
-          <div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-      </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
 <!-- carrito.component.html -->
+<div class="p-8">
 <div class="container mx-auto my-8">
-    <h2 class="text-3xl font-bold mb-4">Carrito de Compras</h2>
   
     <div *ngIf="productosEnCarrito && productosEnCarrito.length > 0">
       <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -112,12 +9,12 @@
           <h3 class="text-xl font-semibold">{{ producto.nombre }}</h3>
           <p class="text-gray-700">${{ producto.precio | number: '1.2-2' }}</p>
           <!-- Otros detalles del producto según sea necesario -->
-          <button class="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Eliminar</button>
+          <button (click)="eliminarProductoDelCarrito(producto.id)" class="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Eliminar</button>
         </li>
       </ul>
   
       <div class="mt-8">
-        <p class="text-xl font-semibold">Total: ${{ calcularTotal() | number: '1.2-2' }}</p>
+        <p class="text-xl font-semibold">Total: S/{{ calcularTotal() | number: '1.2-2' }}</p>
         <button class="mt-4 bg-green-500 text-white p-2 rounded hover:bg-green-600">Realizar Compra</button>
       </div>
     </div>
@@ -126,4 +23,4 @@
       <p class="text-xl">Tu carrito está vacío. ¡Agrega productos!</p>
     </div>
   </div>
-  
+</div>
