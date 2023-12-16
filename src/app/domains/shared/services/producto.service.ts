@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { Producto } from '../../shared/models/producto.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Categoria } from '../../shared/models/categoria.model';
+import { ProductoDetalle } from '../models/ProductoDetalle.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
-  private apiUrl = 'http://localhost:8080/api/productos/';
+  private apiUrl = environment.apiUrl + '/api/productos/';
 
   private mensajeFuente = new BehaviorSubject<string[]>([]);
   mensajeActual = this.mensajeFuente.asObservable();
@@ -25,8 +27,8 @@ export class ProductoService {
     }
   }
 
-  getProductoById(id: number): Observable<Producto> {
-    return this.http.get<Producto>(`${this.apiUrl}${id}`);
+  getProductoById(id: number): Observable<ProductoDetalle> {
+    return this.http.get<ProductoDetalle>(`${this.apiUrl}${id}`);
   }
 
   agregarProducto(producto: Producto): Observable<any> {

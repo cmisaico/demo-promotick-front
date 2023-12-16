@@ -9,7 +9,7 @@ import { Categoria } from '../../shared/models/categoria.model';
 })
 export class FilterComponent implements OnInit {
 
-  private categorias: Categoria[];
+  categorias: Categoria[];
   categoriasMarcadas: string[] = [];
 
   constructor(private productosService: ProductoService) {}

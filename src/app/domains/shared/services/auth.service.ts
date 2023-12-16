@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth/';
-
-  private estaLogueado = false;
+  private apiUrl = environment.apiUrl + '/auth/';
 
   constructor(private http: HttpClient) { }
 
@@ -17,18 +16,44 @@ export class AuthService {
   login(email: string, contrasenia: string): Observable<any> {
     const credenciales = { email, contrasenia };
     console.log('credenciales', credenciales);
-    this.estaLogueado = true;
     return this.http.post(`${this.apiUrl}login`, credenciales);
 
   }
 
   logout(): Observable<any>{
-    this.estaLogueado = false;
     return this.http.post(`${this.apiUrl}logout`, {});
   }
 
-  get logueado(): boolean {
-    return this.estaLogueado;
+  estaLogueado():boolean {
+    return localStorage.getItem('usuario') !== null;
+  }
+
+  obtenerNombre(): string {
+    if(this.estaLogueado()){
+      return JSON.parse(localStorage.getItem('usuario'))['nombre'];
+    }
+    return '';
+  }
+
+  obtenerEmail() {
+    if(this.estaLogueado()){
+      return JSON.parse(localStorage.getItem('usuario'))['email'];
+    }
+    return '';
+  }
+
+  obtenerId() {
+    if(this.estaLogueado()){
+      return JSON.parse(localStorage.getItem('usuario'))['id'];
+    }
+    return '';
+  }
+
+  obtenerToken() {
+    if(this.estaLogueado()){
+      return JSON.parse(localStorage.getItem('usuario'))['token'];
+    }
+    return '';
   }
 
 }

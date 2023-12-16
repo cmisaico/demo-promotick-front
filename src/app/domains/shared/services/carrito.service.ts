@@ -1,24 +1,27 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Producto } from '../models/producto.model';
 import { AuthService } from './auth.service';
+import { ProductoDetalle } from '../models/ProductoDetalle.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'http://localhost:8080/api/carritos';
-  private carrito: Producto[] = [];
-  private productos: Producto[];
+  private apiUrl = environment.apiUrl +  '/api/carritos';
+  private carrito: ProductoDetalle[] = [];
+
 
   constructor(private http: HttpClient, private authService:AuthService) {
   }
 
 
-  getProductosEnCarrito(): Observable<Producto[]> {
-    if(this.authService.logueado){
-
+  getProductosEnCarrito(): Observable<ProductoDetalle[]> {
+    if(this.authService.estaLogueado()){
+      console.log('id - component : ', this.authService.obtenerId());
+      // return this.http.get<Producto[]>(`${this.apiUrl}/${usuarioId}`);
     } else {
       console.log('carrito - component : ', this.carrito);
       this.carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -26,10 +29,10 @@ export class CarritoService {
     }
     console.log('carrito - serice : ', this.carrito);
     return of(this.carrito);
-    // return this.http.get<Producto[]>(`${this.apiUrl}/${usuarioId}`);
+    
   }
 
-  agregarProductoAlCarrito(producto: Producto) {
+  agregarProductoAlCarrito(producto: ProductoDetalle) {
     this.getProductosEnCarrito();
     console.log('antes carrito', this.carrito);
     this.carrito.push(producto);
@@ -38,13 +41,38 @@ export class CarritoService {
     // return this.http.post(`${this.apiUrl}/${usuarioId}/agregar/${productoId}`, {});
   }
 
+  registrarCarrito(): Observable<any> {
+
+    const productosString = localStorage.getItem('productos');
+    const productos = productosString ? JSON.parse(productosString) : [];
+    const productosRequest:Producto[] = productos.map((producto: any) => {
+      // Puedes realizar cualquier transformación necesaria aquí
+      return {
+        id: producto.id,
+        nombre: producto.nombre,
+        precio: producto.precio,
+        imagen: producto.imagen,
+        stock: producto.stock,
+      };
+    });
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.authService.obtenerToken(),
+      }),
+    };
+    console.log('productosRequest', productosRequest);
+    console.log('headers', httpOptions);
+    return this.http.post(`${this.apiUrl}/${this.authService.obtenerId()}/registrarCarrito`, productosRequest, httpOptions);
+  }
+
   limpiarCarrito() {
     this.carrito = [];
     this.actualizarLocalStorage();
   } 
 
   eliminarProductoDelCarrito(productoId: number): Observable<any> {
-    if(this.authService.logueado){
+    if(this.authService.estaLogueado){
 
     } else {
       console.log('delete - component : ', this.carrito);

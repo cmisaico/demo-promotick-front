@@ -24,7 +24,8 @@ export class RegistroComponent implements OnInit {
       response => {
         // Manejar la respuesta y almacenar el token si es necesario
         console.log('Autenticado exitosamente', response);
-        this.router.navigate(['/lista']);
+        localStorage.setItem('usuario', JSON.stringify(response));
+        this.router.navigate(['/']);
 
       },
       error => {

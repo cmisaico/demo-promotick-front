@@ -15,6 +15,8 @@ import { FilterComponent } from './domains/components/filter/filter.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './domains/shared/components/modal/modal.component';
+import { ErrorPageComponent } from './domains/shared/components/error-page/error-page.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { ModalComponent } from './domains/shared/components/modal/modal.componen
     HeaderComponent,
     FilterComponent,
     ModalComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,

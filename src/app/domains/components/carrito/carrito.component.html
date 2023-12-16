@@ -1,26 +1,51 @@
 
 <!-- carrito.component.html -->
-<div class="p-8">
-<div class="container mx-auto my-8">
+
+<div class="bg-white p-6 rounded shadow-md max-w-xl w-full mx-auto my-8">
   
-    <div *ngIf="productosEnCarrito && productosEnCarrito.length > 0">
-      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <li *ngFor="let producto of productosEnCarrito" class="bg-white p-4 shadow-md rounded-md">
-          <h3 class="text-xl font-semibold">{{ producto.nombre }}</h3>
-          <p class="text-gray-700">${{ producto.precio | number: '1.2-2' }}</p>
-          <!-- Otros detalles del producto según sea necesario -->
-          <button (click)="eliminarProductoDelCarrito(producto.id)" class="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Eliminar</button>
-        </li>
-      </ul>
-  
-      <div class="mt-8">
-        <p class="text-xl font-semibold">Total: S/{{ calcularTotal() | number: '1.2-2' }}</p>
-        <button class="mt-4 bg-green-500 text-white p-2 rounded hover:bg-green-600">Realizar Compra</button>
-      </div>
-    </div>
-  
-    <div *ngIf="productosEnCarrito && productosEnCarrito.length === 0">
-      <p class="text-xl">Tu carrito está vacío. ¡Agrega productos!</p>
-    </div>
+  <div class="flow-root" *ngIf="productosEnCarrito && productosEnCarrito.length > 0">
+   <div class="flex items-center justify-between mb-4">
+     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Carrito Compras</h5>
+     <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+         Borrar todo
+     </a>
+ </div>
+       <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+           <li class="py-3 sm:py-4" *ngFor="let producto of productosEnCarrito">
+               <div class="flex items-center">
+                   <div class="flex-shrink-0">
+                       <img class="w-8 h-8 rounded-full" [src]="producto.imagen" alt="Neil image">
+                   </div>
+                   <div class="flex-1 min-w-0 ms-4">
+                       <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                           {{ producto.nombre }}
+                       </p>
+                       <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                         <a (click)="eliminarProductoDelCarrito(producto.id)" href="/" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
+                       </p>
+                   </div>
+                   <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                     S/{{ producto.precio | number: '1.2-2' }}
+                   </div>
+               </div>
+           </li>
+       </ul>
+       <div class="mt-8">
+         <p class="text-xl font-semibold">Total: S/{{ calcularTotal() | number: '1.2-2' }}</p>
+       <div *ngIf="!estaLogueado()">
+         Para comprar debera hacer primero
+         <a href="./login" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</a>
+         ó
+         <a href="./registro" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Registrarse </a>
+        </div>
+         <button *ngIf="estaLogueado()" (click)="realizarCompra()" class="mt-4 bg-green-500 text-white p-2 rounded hover:bg-green-600">Realizar Compra</button>
+       </div>
   </div>
-</div>
+ 
+  <div *ngIf="productosEnCarrito && productosEnCarrito.length === 0">
+   <p class="text-xl">Tu carrito está vacío. ¡Agrega productos!</p>
+ </div>
+ </div>
+
+
+

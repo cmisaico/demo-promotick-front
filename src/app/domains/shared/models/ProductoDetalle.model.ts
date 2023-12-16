@@ -1,11 +1,12 @@
 import { Categoria } from "./categoria.model";
 
-export interface Producto {
+export interface ProductoDetalle {
     id?: number;
     nombre: string;
     precio: number;
     imagen: string;
     stock: number;
-    
+    descripcion: string;
+    categoria: Categoria;
   }
   
