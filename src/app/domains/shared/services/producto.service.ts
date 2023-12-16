@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Producto } from '../../shared/models/producto.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Categoria } from '../../shared/models/categoria.model';
-import { ProductoDetalle } from '../models/ProductoDetalle.model';
+import { ProductoDetalle } from '../models/producto.detalle.model';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
@@ -41,7 +41,6 @@ export class ProductoService {
 
   enviarMensaje(categoriasMarcadas: string[]){
     this.mensajeFuente.next(categoriasMarcadas);
-    console.log('llego 22');
   }
 
 }

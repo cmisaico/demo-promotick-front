@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Producto } from '../models/producto.model';
 import { AuthService } from './auth.service';
-import { ProductoDetalle } from '../models/ProductoDetalle.model';
+import { ProductoDetalle } from '../models/producto.detalle.model';
 import { environment } from '../../../../environments/environment';
+import { ItemCarrito } from '../models/item.carrito.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,30 +21,46 @@ export class CarritoService {
 
   getProductosEnCarrito(): Observable<ProductoDetalle[]> {
     if(this.authService.estaLogueado()){
-      console.log('id - component : ', this.authService.obtenerId());
-      // return this.http.get<Producto[]>(`${this.apiUrl}/${usuarioId}`);
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + this.authService.obtenerToken(),
+        }),
+      };
+
+      let usuarioId = this.authService.obtenerId();
+      return this.http.get<ProductoDetalle[]>(`${this.apiUrl}/${usuarioId}`, httpOptions);
     } else {
-      console.log('carrito - component : ', this.carrito);
       this.carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      console.log('carrito - componentdespue : ', this.carrito);
     }
-    console.log('carrito - serice : ', this.carrito);
     return of(this.carrito);
     
   }
 
-  agregarProductoAlCarrito(producto: ProductoDetalle) {
-    this.getProductosEnCarrito();
-    console.log('antes carrito', this.carrito);
-    this.carrito.push(producto);
-    console.log('agrega carrito', this.carrito);
-    this.actualizarLocalStorage();
-    // return this.http.post(`${this.apiUrl}/${usuarioId}/agregar/${productoId}`, {});
+  agregarProductoAlCarrito(producto: ProductoDetalle): Observable<any> {
+
+    if(this.authService.estaLogueado()){
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + this.authService.obtenerToken(),
+        }),
+      };
+      let usuarioId = this.authService.obtenerId();
+      let itemCarrito:ItemCarrito = { usuarioId: usuarioId, productoId: producto.id};
+      return this.http.post(`${this.apiUrl}/agregar`, itemCarrito, httpOptions);
+    } else {
+      this.getProductosEnCarrito();
+      this.carrito.push(producto);
+      this.actualizarLocalStorage();
+      return of('');
+    }
+
   }
 
   registrarCarrito(): Observable<any> {
 
-    const productosString = localStorage.getItem('productos');
+    const productosString = localStorage.getItem('carrito');
     const productos = productosString ? JSON.parse(productosString) : [];
     const productosRequest:Producto[] = productos.map((producto: any) => {
       // Puedes realizar cualquier transformación necesaria aquí
@@ -55,15 +72,16 @@ export class CarritoService {
         stock: producto.stock,
       };
     });
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.authService.obtenerToken(),
       }),
     };
+    const token = this.authService.obtenerToken();
     console.log('productosRequest', productosRequest);
     console.log('headers', httpOptions);
-    return this.http.post(`${this.apiUrl}/${this.authService.obtenerId()}/registrarCarrito`, productosRequest, httpOptions);
+    return this.http.post(`${this.apiUrl}/${this.authService.obtenerId()}/registrarCarrito`, productosRequest,
+      httpOptions);
   }
 
   limpiarCarrito() {
@@ -71,23 +89,27 @@ export class CarritoService {
     this.actualizarLocalStorage();
   } 
 
-  eliminarProductoDelCarrito(productoId: number): Observable<any> {
-    if(this.authService.estaLogueado){
-
+  eliminarProductoDelCarrito(productoId: number): Observable<string> {
+    if(this.authService.estaLogueado()){
+        console.log('id - component : ');
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization': 'Bearer ' + this.authService.obtenerToken(),
+          }),
+        };
+        let usuarioId = this.authService.obtenerId();
+        return this.http.delete<string>(`${this.apiUrl}/${usuarioId}/eliminar/${productoId}`,
+        httpOptions);
     } else {
-      console.log('delete - component : ', this.carrito);
       this.carrito = this.carrito.filter(producto => producto.id !== productoId);
       this.actualizarLocalStorage();
-      console.log('delete - componentdespue : ', this.carrito);
     }
-    console.log('carrito - serice : ', this.carrito);
-    return of(this.carrito);
-    // return this.http.delete(`${this.apiUrl}/${usuarioId}/eliminar/${productoId}`);
+
   }
 
   realizarCompra(usuarioId: number): Observable<any> {
-    // Lógica para realizar la compra, puede implicar la actualización de la base de datos, etc.
-    return this.http.post(`${this.apiUrl}/${usuarioId}/comprar`, {});
+    // Lógica para realizar la compra
+    return null;
   }
 
   private actualizarLocalStorage(){

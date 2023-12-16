@@ -27,15 +27,7 @@ export class LoginComponent implements OnInit {
         // Manejar la respuesta y almacenar el token si es necesario
         console.log('Autenticado exitosamente', response);
         localStorage.setItem('usuario', JSON.stringify(response));
-        this.carritoService.registrarCarrito().subscribe(
-          response => {
-            console.log('Carrito registrado exitosamente', response);
-            localStorage.setItem('carrito', JSON.stringify(response));
-          },
-          error => {
-            console.error('Error al registrar carrito', error);
-          }
-        );
+        localStorage.removeItem('carrito');
         this.router.navigate(['/']);
 
       },

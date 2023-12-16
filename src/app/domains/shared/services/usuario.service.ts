@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../../shared/models/usuario.model';
 import { environment } from '../../../../environments/environment';
+import { UsuarioRequest } from '../../shared/models/usuario.request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
 
-  registrarUsuario(usuario: Usuario): Observable<any> {
+  registrarUsuario(usuario: UsuarioRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}registro`, usuario);
   }
 }

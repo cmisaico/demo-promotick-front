@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { Usuario } from '../../shared/models/usuario.model';
 import { Router } from '@angular/router';
+import { UsuarioRequest } from '../../shared/models/usuario.request.model';
 
 @Component({
   selector: 'app-registro',
@@ -20,16 +21,16 @@ export class RegistroComponent implements OnInit {
   }
 
   registrar() {
-    this.usuarioService.registrarUsuario(this.usuario).subscribe(
+    let usuarioRequest: UsuarioRequest = { usuario: this.usuario, carrito:[] };
+    const productosString = localStorage.getItem('carrito');
+    usuarioRequest.carrito = productosString ? JSON.parse(productosString) : [];
+    this.usuarioService.registrarUsuario(usuarioRequest).subscribe(
       response => {
-        // Manejar la respuesta y almacenar el token si es necesario
-        console.log('Autenticado exitosamente', response);
         localStorage.setItem('usuario', JSON.stringify(response));
+        localStorage.removeItem('carrito');
         this.router.navigate(['/']);
-
       },
       error => {
-        // Manejar el error de autenticación
         console.error('Error de autenticación', error);
       }
     );

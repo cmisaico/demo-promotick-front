@@ -24,11 +24,7 @@ export class ListProductsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
-    // this.productosService.getProductos([])
-    //   .subscribe(productos => this.productos = productos);
     this.productosService.mensajeActual.subscribe(mensaje => {
-      console.log('llego');
       this.productosService.getProductos(mensaje)
         .subscribe(productos => this.productos = productos);
     });

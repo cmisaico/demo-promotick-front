@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../shared/services/carrito.service';
 import { Producto } from '../../shared/models/producto.model';
 import { AuthService } from '../../shared/services/auth.service';
-import { ProductoDetalle } from '../../shared/models/ProductoDetalle.model';
+import { ProductoDetalle } from '../../shared/models/producto.detalle.model';
 
 @Component({
   selector: 'app-carrito',
@@ -17,19 +17,22 @@ export class CarritoComponent implements OnInit {
     private authService:AuthService) {}
 
   ngOnInit(): void {
-    const usuarioId = 1; // Debes obtener el ID del usuario de alguna maera
-    console.log('inicia carrito');
+    const usuarioId = 1;
     this.getProductosEnCarrito();
   }
 
   getProductosEnCarrito(): void {
+    console.log('inicio lista cartito');
     this.carritoService.getProductosEnCarrito()
-      .subscribe(productos => this.productosEnCarrito = productos);
+      .subscribe(productos => {
+        this.productosEnCarrito = productos;
+      });
   }
 
   eliminarProductoDelCarrito(productoId: number): void {
     this.carritoService.eliminarProductoDelCarrito(productoId)
-      .subscribe(() => {
+      .subscribe((mensaje: string) => {
+        console.log('mensaje : ', mensaje);
         this.getProductosEnCarrito();
       });
   }

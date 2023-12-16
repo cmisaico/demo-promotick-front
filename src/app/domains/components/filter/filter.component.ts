@@ -29,13 +29,10 @@ export class FilterComponent implements OnInit {
   onCheckboxChange(event: Event, categoria: string, isChecked: boolean) {
     event.stopPropagation();
     if (isChecked) {
-      // Agregar categoría al array de categorías marcadas
       this.categoriasMarcadas.push(categoria);
     } else {
-      // Quitar categoría del array de categorías marcadas
       this.categoriasMarcadas = this.categoriasMarcadas.filter(cat => cat !== categoria);
     }
-
     // Imprimir las categorías marcadas (puedes realizar cualquier lógica adicional aquí)
     console.log('Categorías Marcadas:', this.categoriasMarcadas);
     this.filtrarPorCategoria();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../shared/services/producto.service';
-import { ProductoDetalle } from '../../shared/models/ProductoDetalle.model';
+import { ProductoDetalle } from '../../shared/models/producto.detalle.model';
 import { CarritoService } from '../../shared/services/carrito.service';
 
 @Component({
@@ -28,9 +28,11 @@ export class ProductoComponent implements OnInit {
   }
 
   agregarAlCarrito(producto: ProductoDetalle): void {
-    this.carritoService.agregarProductoAlCarrito(producto);
+    this.carritoService.agregarProductoAlCarrito(producto).subscribe(()=> {
+      console.log('data', {});  
+    }
+    );
     this.router.navigate(['/']);
-    console.log('add', producto);
   }
 
 }

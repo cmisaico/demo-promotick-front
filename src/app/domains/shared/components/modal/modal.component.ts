@@ -12,7 +12,6 @@ export class ModalComponent implements OnInit {
   @Input() visible: boolean = false;
 
   cerrarModal() {
-    console.log(this.visible);
     this.visible = false;
   }
 
