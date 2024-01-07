@@ -1,10 +1,11 @@
 <app-filter></app-filter>
+
 <div class="p-8 sm:ml-64">
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div *ngFor="let producto of productos"
             class="bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
 
-            <img class="h-auto max-w-full mx-auto " [src]="producto.imagen" alt="product image" />
+            <img class="h-auto max-w-full mx-auto " [src]="'https://productos-pt-bucket.s3.amazonaws.com/'+producto.imagen" alt="product image" />
 
             <div class="px-5 pb-5">
 
@@ -20,7 +21,7 @@
                 <div class="flex items-center justify-between">
                     <span class="text-1xl font-bold text-gray-900 dark:text-white">S/{{ producto.precio | number:
                         '1.2-2' }}</span>
-                    <a [routerLink]="['/producto', producto.id]" href="#"
+                    <a [href]="'/producto/'+producto.id"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver
                         mas</a>
                 </div>

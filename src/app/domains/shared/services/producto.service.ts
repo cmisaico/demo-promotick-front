@@ -43,4 +43,5 @@ export class ProductoService {
     this.mensajeFuente.next(categoriasMarcadas);
   }
 
+
 }

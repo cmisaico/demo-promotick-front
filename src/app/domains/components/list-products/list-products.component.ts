@@ -3,6 +3,7 @@ import { ProductoService } from '../../shared/services/producto.service';
 import { Producto } from '../../shared/models/producto.model';
 import { CarritoService } from '../../shared/services/carrito.service';
 import { ModalService } from '../../shared/services/modal.service';
+import { ComponenteService } from '../../shared/services/componente.service';
 
 @Component({
   selector: 'app-list-products',
@@ -17,7 +18,8 @@ export class ListProductsComponent implements OnInit {
 
   constructor(private productosService: ProductoService,
     private carritoService:CarritoService,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private componentService:ComponenteService) {
       this.modalService.modalVisible$.subscribe(visible => {
         this.modalVisible = visible;
       });
@@ -28,6 +30,10 @@ export class ListProductsComponent implements OnInit {
       this.productosService.getProductos(mensaje)
         .subscribe(productos => this.productos = productos);
     });
+
+    console.log('this.productos', true);
+    this.componentService.actualizarVista(true);
+
  
   }
 

@@ -4,7 +4,7 @@
 
 <div  *ngIf="producto" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   <a href="#">
-      <img class="rounded-t-lg" [src]="producto.imagen" alt="" />
+      <img class="rounded-t-lg" [src]="'https://productos-pt-bucket.s3.amazonaws.com/'+producto.imagen" alt="" />
   </a>
   <div class="p-5">
       <a href="#">
@@ -17,6 +17,61 @@
     </div>
   </div>
 </div>
+
   </div>
 
 
+
+
+
+<h3 class="visible md:invisible mt-6 text-2xl font-semibold text-gray-700 dark:text-white text-center">También te puede interesar</h3>
+
+
+<div id="default-carousel"  class="carrousel-responsive mt-6 relative w-full dark" data-carousel="slide">
+  <!-- Carousel wrapper -->
+  <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+       <!-- Item 1 -->
+      <div *ngFor="let producto of productosRelacionados" class="hidden duration-700 ease-in-out" data-carousel-item>
+            <a [href]="'/producto/'+producto.id" target="_blank">
+              <img [src]="producto.imagen" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            </a>
+      </div>
+  </div>
+  <!-- Slider indicators -->
+  <div  class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+      <button *ngFor="let productoR of productosRelacionados" [attr.aria-current]="productoR.indice == '0'? 'true':'false'" type="button" class="w-3 h-3 rounded-full" [attr.data-carousel-slide-to]="productoR.indice"></button>
+  </div>
+  <!-- Slider controls -->
+  <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          </svg>
+          <span class="sr-only">Previous</span>
+      </span>
+  </button>
+  <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <span class="sr-only">Next</span>
+      </span>
+  </button>
+</div>
+
+
+<div class="list-product-rel p-8 max-w-screen-md mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-1  lg:grid-cols-3 gap-4">
+        <div *ngFor="let productoR of productosRelacionados"
+            class="bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+            <a [href]="'/producto/'+productoR.id">
+            <img class="h-auto max-w-full mx-auto " [src]="productoR.imagen" alt="product image" />
+            </a>
+            <div class="px-5 pb-5">
+
+                <span class="text-xl tracking-tight text-gray-900 dark:text-white">{{ productoR.nombre }}</span>
+            </div>
+        </div>
+    </div>
+</div>
