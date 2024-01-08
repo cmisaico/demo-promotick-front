@@ -1,6 +1,4 @@
-
-
-  <div class="bg-white p-8 rounded shadow-md max-w-md w-full mx-auto" >
+<div class="bg-white p-8 rounded shadow-md max-w-md w-full mx-auto" >
 
 <div  *ngIf="producto" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   <a href="#">
@@ -12,7 +10,7 @@
       </a>
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ producto.descripcion }}</p>
       <div class="flex items-center justify-between">
-        <span class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
+        <span class="text-3xl font-bold text-gray-900 dark:text-white">S/{{producto.precio}}</span>
         <button (click)="agregarAlCarrito(producto)" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agregar al carrito</button>
     </div>
   </div>
@@ -30,10 +28,9 @@
 <div id="default-carousel"  class="carrousel-responsive mt-6 relative w-full dark" data-carousel="slide">
   <!-- Carousel wrapper -->
   <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-       <!-- Item 1 -->
       <div *ngFor="let producto of productosRelacionados" class="hidden duration-700 ease-in-out" data-carousel-item>
             <a [href]="'/producto/'+producto.id" target="_blank">
-              <img [src]="producto.imagen" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+              <img [src]="'https://productos-pt-bucket.s3.amazonaws.com/'+producto.imagen" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
             </a>
       </div>
   </div>
@@ -66,7 +63,7 @@
         <div *ngFor="let productoR of productosRelacionados"
             class="bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <a [href]="'/producto/'+productoR.id">
-            <img class="h-auto max-w-full mx-auto " [src]="productoR.imagen" alt="product image" />
+            <img class="h-36 max-w-full mx-auto " [src]="'https://productos-pt-bucket.s3.amazonaws.com/'+productoR.imagen" alt="product image" />
             </a>
             <div class="px-5 pb-5">
 

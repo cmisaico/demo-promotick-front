@@ -12,20 +12,26 @@ export class DataServiceMock {
         let mockData: ProductoRelacionado[] = [
           {
             id: 1,
-            nombre: 'Producto 1',
-            imagen: 'https://static.interbankbenefit.pe/public/web/images/producto/thumbnail/ficha-tecnica/486395-ficha-tecnica.png',
+            nombre: 'Smartphone Galaxy S21',
+            imagen: 'imagen_s21.jpg',
             indice: 0,
           },
           {
             id: 2,
-            nombre: 'Producto 3',
-            imagen: 'https://static.interbankbenefit.pe/public/web/images/producto/thumbnail/ficha-tecnica/452572-ficha-tecnica.png',
+            nombre: 'Laptop Ultrabook XPS 13',
+            imagen: 'imagen_xps13.jpg',
             indice: 1,
           },
           {
             id: 3,
-            nombre: 'Producto 4',
-            imagen: 'https://static.interbankbenefit.pe/public/web/images/producto/thumbnail/ficha-tecnica/430257-ficha-tecnica.png',
+            nombre: 'Tableta iPad Air',
+            imagen: 'imagen_ipad_air.jpg',
+            indice: 2,
+          },
+          {
+            id: 4,
+            nombre: 'Auriculares inalámbricos Sony WH-1000XM4',
+            imagen: 'imagen_sony_wh1000xm4.jpg',
             indice: 2,
           },
 
